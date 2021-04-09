@@ -2,13 +2,14 @@
 The script is designed to extract items from affiliate shopping articles & format them correctly to upload to Facebook catalogs. A CSV file will be generated which should then be uploaded through Commerce Manager.
 
 ## Instructions
-1. Download folder (we’ll need to add your email address to the share list on Google Drive)
-2. Inside this folder create a CSV file containing the URLs of all the articles you want to use. Format this with one URL per line (this is the default if you save from a Google Sheet)
-3. Make sure [Python is downloaded](https://www.python.org/downloads/)
-4. Open Terminal and paste the following (these are the packages needed to run the script): `pip3 install pandas && pip3 install urllib`
-5. Make sure the folder you downloaded is in your Downloads tab and named “Buzzfeed_Catalog_Script”
-6. In terminal, copy and paste the following: `cd Downloads/Buzzfeed_Catalog_Script`
-7. In terminal, copy and paste the following: `python3 bulk_buzzfeed_generator.py [NAME OF YOUR CSV HERE]`
+1. Download folder. Click the green “Code” button and select “Download ZIP”, then unzip in your Downloads folder
+![image](https://user-images.githubusercontent.com/27544022/114214917-f2737700-9932-11eb-816b-dafbf65d7206.png)
+3. Inside this folder create a CSV file containing the URLs of all the articles you want to use. Format this with one URL per line (this is the default if you save from a Google Sheet)
+4. Make sure [Python is downloaded](https://www.python.org/downloads/)
+5. Open Terminal and paste the following (these are the packages needed to run the script): `pip3 install pandas && pip3 install urllib`
+6. Make sure the folder you downloaded is in your Downloads tab and named “Buzzfeed_Catalog_Script”
+7. In terminal, copy and paste the following: `cd Downloads/Buzzfeed_Catalog_Script`
+8. In terminal, copy and paste the following: `python3 bulk_buzzfeed_generator.py [NAME OF YOUR CSV HERE]`
     
     a. Eg. if your CSV is named `shopping_urls.csv`: `python3 bulk_buzzfeed_generator.py shopping_urls.csv`
     
