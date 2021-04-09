@@ -14,7 +14,7 @@ The script is designed to extract items from affiliate shopping articles & forma
     a. Eg. if your CSV is named `shopping_urls.csv`: `python3 bulk_buzzfeed_generator.py shopping_urls.csv`
     
     b. The resulting text will tell you how many items have been found and processed in each URL. If you want to suppress this, add to the end of the previous command: `1> /dev/null`
-8. Once this is complete, it’ll generate a new CSV named `bulk_catalog_buzzfeed.csv`. Upload this into your Commerce Manager (Business Manager > Commerce)
+8. Once this is complete, it’ll generate a new CSV named `bulk_catalog_buzzfeed.csv`. Check it over and upload this into your Commerce Manager (Business Manager > Commerce)
 
 ## Technical Stuff
 ### Structure
