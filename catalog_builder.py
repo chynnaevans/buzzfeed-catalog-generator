@@ -10,6 +10,7 @@ class CatalogParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag == "script" and ('id', '__NEXT_DATA__') in attrs:
             self.is_correct_tag = True
+            print("found")
     def handle_data(self, data):
         if self.is_correct_tag:
             self.json_tag = data

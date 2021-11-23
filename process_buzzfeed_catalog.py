@@ -4,11 +4,11 @@ import pandas as pd
 
 # Mapping template fields -> Buzzfeed data struct
 data_mappings = {
-	"data-vars-link-id": "id",
-	"data-vars-product-title": "title",
+	"data-vars-subbuzz-id": "id",
+	"data-vars-name": "title",
 	"data-vars-price.value": "price",
 	"data-vars-price.currency": "currency",
-	"data-vars-keywords": "category",
+	"data-vars-keywords": "custom_label_1",
 	"data-vars-retailers": "brand",
 	"data-vars-product-img": "image_link",
 }
@@ -29,7 +29,7 @@ class SubBuzzParser(HTMLParser):
             "link": base_url + "#",
             "image_link": None,
             "brand": None,
-            "item_group_id": None,
+            "custom_label_0": None,
             "currency": "",
             }
         self.group_id = group_id
@@ -50,12 +50,12 @@ class SubBuzzParser(HTMLParser):
             self.is_data_vars = False
             ###########################
             ##### POST PROCESSING ######
-            ###########################
+            ##########################
             if self.row["price"] != "" and  float(self.row["price"]) > 0:
                 self.row["price"] = self.row["price"] + " " + self.row["currency"]
             else:
                 self.row["price"] = None
-            self.row["item_group_id"] = self.group_id
+            self.row["custom_label_0"] = self.group_id
             if self.row["title"] != None and len(self.row["title"]) > 150:
                 self.row["title"] = self.row["title"][:146] + "..."
 
@@ -74,12 +74,22 @@ group_id: Group ID for Facebook catalog
 """
 def process_json(data, base_url, output_name, group_id):
     output = []
+    imgs = {}
+
+    for post in data['props']['pageProps']['buzz']['sub_buzzes']:
+        if 'images' in post.keys():
+            imgs[post['id']] = post['images']['standard']['url']
+        elif 'photo_set_collection' in post.keys():
+            imgs[post['id']] = post['photo_set_collection'][0]['images']['standard']['url']
+    
     for subbuzz in data['props']['pageProps']['subbuzzData']['subbuzzes']:
         parser = SubBuzzParser(base_url, group_id)
         parser.feed(subbuzz)
-        output.append(parser.row)
+        if parser.row['id'] in imgs:
+            parser.row['image_link'] = imgs[parser.row['id']]
+            output.append(parser.row)
 
-    pd_output = pd.DataFrame(output)
+    pd_output = pd.DataFrame.from_records(output)
     pd_output = pd_output.dropna()
     if len(pd_output) > 0:
         pd_output.to_csv(output_name + '.csv', mode="a")
